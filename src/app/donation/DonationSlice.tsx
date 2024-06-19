@@ -23,7 +23,10 @@ export const donationSlice = createSlice({
   reducers: {
     createDonation: (state, action) => {
       state.donations.push({ id: Date.now(), ...action.payload });
-      console.log("donation created with id: ", Date.now(), action.payload);
+      console.log("donation created with id: ", Date.now(), action.payload + "New donations list: " + state.donations.length);
+      localStorage.setItem("donations", JSON.stringify(state.donations));
+      const donationList = JSON.parse(localStorage.getItem('donations') || '[]');
+      console.log("New donation list count " + donationList.length);
     },
 
     readDonation: (state, action) => {
@@ -40,7 +43,8 @@ export const donationSlice = createSlice({
         id: action.payload.id,
         ...action.payload.updateDonation,
       };
-      console.log("donation updated with new donation: " + action.payload);
+      console.log("donation updated with new donation: " + action.payload + "New donations list: " + state.donations.length);
+      localStorage.setItem("donations", JSON.stringify(state.donations));
     },
 
     deleteDonation: (state, action) => {
@@ -48,7 +52,12 @@ export const donationSlice = createSlice({
         (donation) => donation.id !== action.payload
       );
       console.log("donation deleted with id: " + action.payload);
+      localStorage.setItem("donations", JSON.stringify(updatedDonations));
       return { ...state, donations: updatedDonations };
+    },
+
+    cleanCurrentDonation: (state) => {
+      state.currentDonation = null;
     },
   },
 });
@@ -59,6 +68,7 @@ export const {
   readDonation,
   updateDonation,
   deleteDonation,
+  cleanCurrentDonation,
 } = donationSlice.actions;
 
 export default donationSlice.reducer;
