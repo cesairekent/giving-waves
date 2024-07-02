@@ -3,6 +3,7 @@ export interface DonationModel {
   donor: string;
   donationType: string;
   amount: number;
+  description?: string;
 }
 
 export interface DonationItemProps {
