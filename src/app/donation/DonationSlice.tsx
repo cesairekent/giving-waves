@@ -3,7 +3,7 @@ import { DonationModel } from "./models/DonationModel";
 import { DonationState } from "./models/DonationState";
 
 const donationList : DonationModel[] = [
-  { id: 1, donor: "Emmanuel", donationType: "Financier", amount: 10.00 },
+  { id: 1, donor: "Emmanuel", donationType: "Financier", amount: 10.00},
   { id: 2, donor: "Alexandre", donationType: "Materiel", amount: 5.00 },
   { id: 3, donor: "Sophia", donationType: "Materiel", amount: 15.00 },
   { id: 4, donor: "Liam", donationType: "Financier", amount: 20.00 },

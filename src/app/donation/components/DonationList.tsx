@@ -1,27 +1,38 @@
 import { useNavigate } from "react-router-dom";
-import DonationItem from "./DonationItem";
-import { useDispatch, useSelector } from "react-redux";
-import { DonationModel } from "../models/DonationModel";
+import { useDispatch } from "react-redux";
 import { cleanCurrentDonation } from "../DonationSlice";
+import DonationListTable from "./DonationListTable";
+import { Button } from "@/components/ui/button";
 
 function DonationList() {
-    const donations: DonationModel[] = useSelector((state: { donation: { donations: DonationModel[] } }) => state.donation.donations);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     return (
-        <div>
-            <h2>Liste des Dons</h2>
-            <button onClick={() => {
-                dispatch(cleanCurrentDonation());
-                navigate("/donation-form");
-            }}>Add</button>
-            <button onClick={() => window.open('/donation-celebrate', '_blank', 'toolbar=no,scrollbars=no,resizable=yes,width=800,height=600')}>Open Donation Celebrate</button>
-            <ul>
-                {donations.map((donation) => (
-                    <DonationItem key={donation.id} donation={donation} />
-                ))}
-            </ul>
+        <div className="h-full flex flex-col items-center justify-center space-y-4">
+            <div>
+                <h2 className="text-center text-2xl font-bold">Liste des Dons</h2>
+            </div>
+            <div className="flex space-x-4">
+                <Button
+                    className="text-white px-4 py-2 rounded"
+                    onClick={() => {
+                        dispatch(cleanCurrentDonation());
+                        navigate("/donation-form");
+                    }}
+                >
+                    Ajouter
+                </Button>
+                <Button
+                    className="text-white px-4 py-2 rounded"
+                    onClick={() =>
+                        window.open('/donation-celebrate', '_blank', 'toolbar=no,scrollbars=no,resizable=yes,width=800,height=600')
+                    }
+                >
+                    Open Donation Celebrate
+                </Button>
+            </div>
+            <DonationListTable />
         </div>
     );
 }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { DonationModel } from '../models/DonationModel';
+import DonorCard from './DonorCard';
 
 function DonationCelebrate() {
   const [donationList, setDonationList] = useState<DonationModel[]>(() => {
@@ -25,8 +26,21 @@ function DonationCelebrate() {
   //   localStorage.setItem('donations', JSON.stringify(donationList));
   // }, [donationList]);
 
+  const sortedDonationList = [...donationList].sort((a, b) => b.amount - a.amount);
+
   return (
-    <div>Donation Celebrate {donationList.length}</div>
+    <div className="h-screen w-screen flex flex-col">
+    <div className="flex-grow flex items-center justify-center">
+      <div className="text-center">Donation Celebrate {donationList.length}</div>
+    </div>
+    <div className="flex justify-end items-end h-2/3 overflow-y-auto p-4">
+        <div className="space-y-4 max-h-full w-full max-w-xs">
+          {sortedDonationList.map((donation, index) => (
+            <DonorCard key={index} {...donation} />
+          ))}
+        </div>
+      </div>
+  </div>
   );
 }
 
