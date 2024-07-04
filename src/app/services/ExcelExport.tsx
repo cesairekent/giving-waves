@@ -2,9 +2,10 @@ import React from 'react';
 import { saveAs } from 'file-saver';
 import * as XLSX from 'xlsx';
 import { Button } from '@/components/ui/button';
+import { DonationModel } from '../donation/models/DonationModel';
 
 interface ExcelExportProps {
-  data: any[];
+  data: DonationModel[];
   fileName: string;
 }
 
