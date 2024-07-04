@@ -1,10 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { cleanCurrentDonation } from "../DonationSlice";
 import DonationListTable from "./DonationListTable";
 import { Button } from "@/components/ui/button";
+import ExcelExport from "@/app/services/ExcelExport";
+import { DonationModel } from "../models/DonationModel";
 
 function DonationList() {
+
+    const donations: DonationModel[] = useSelector((state: { donation: { donations: DonationModel[] } }) => state.donation.donations);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -31,6 +35,7 @@ function DonationList() {
                 >
                     Open Donation Celebrate
                 </Button>
+                <ExcelExport data={donations} fileName="Liste des Dons" />
             </div>
             <DonationListTable />
         </div>
